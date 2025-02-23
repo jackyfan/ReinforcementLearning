@@ -32,13 +32,20 @@ class Agent:
         else:
             return np.argmax(self.Qs)
 
-
+steps = 1000
+epsilon = 0.1
 bandit = Bandit()
-Qs = np.zeros(10)
-ns = np.zeros(10)
-for n in range(1, 11):
-    action = np.random.randint(0, 10)
+agent = Agent(epsilon)
+total_reward = 0
+total_rewards = []
+rates = []
+
+for step in range(steps):
+    action = agent.get_action()
     reward = bandit.play(action)
-    ns += 1
-    Qs[action] += (reward - Qs[action]) / ns[action]
-    print(Qs)
+    agent.update(action, reward)
+    total_reward += reward
+    total_rewards.append(reward)
+    rates.append(total_reward/(step+1))
+
+print(total_reward)
