@@ -40,6 +40,8 @@ class GridWorld:
             for w in range(self.width):
                 yield h, w
 
+    def next_state(self,state,action):
+        pass
 
     def reward(self,state,action,next_state):
         return self.reward_map[next_state]
