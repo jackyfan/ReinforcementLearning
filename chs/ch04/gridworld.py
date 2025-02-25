@@ -41,7 +41,17 @@ class GridWorld:
                 yield h, w
 
     def next_state(self,state,action):
-        pass
+        action_move_map = [(-1,0),(1,0),(0,-1),(0,1)]
+        move = action_move_map[action]
+        next_state = (state[0]+move[0],state[1]+move[1])
+        ny,nx=next_state
+
+        if 0<nx or nx>self.width or 0<ny or ny>self.height:
+            next_state=state
+        elif next_state ==self.wall_state:
+            next_state = state
+
+        return next_state
 
     def reward(self,state,action,next_state):
         return self.reward_map[next_state]
